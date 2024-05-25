@@ -15,7 +15,7 @@ struct block
     block* next = nullptr;
     string data = "";
     string hashNo = "";
-}; 
+};  
 
 int main()
 {
