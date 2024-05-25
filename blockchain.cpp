@@ -62,7 +62,8 @@ int main()
             string attemptHash = total+to_string(possible_hash);
             SHA256 h;
             string temp = h.hash(attemptHash);//couting the attempt hash here looks cool
-            if(temp[0] == '0' && temp[1] == '0' && temp[2] == '0' && temp[3] == '0' && temp[4] == '0' && temp[5] == '0')
+            cout << attemptHash << endl;
+            if(temp[0] == '0' && temp[1] == '0' && temp[2] == '0' && temp[3] == '0' && temp[4] == '0')
             {
                 cout << "Hash found! It is " << possible_hash << endl;
                 auto stop = high_resolution_clock::now();
@@ -76,6 +77,7 @@ int main()
         cout << "Enter next transaction info to continue, and q to quit" << endl;
         string garbage;
         cin >> garbage;
+        curr->hashNo = to_string(possible_hash);
         if(garbage == "q"){break;}
 
 
@@ -93,14 +95,16 @@ int main()
 
     cout << endl << "FULL BLOCKCHAIN STATS" << endl;
 
-    block *iterate = &aloft;
+    block *iterate = aloft.next;
     int i = 0;
 
     while(iterate != nullptr)
     {
+        SHA256 h;
         cout << "Block #" << i << endl;
         cout << "Data: " << iterate->data << endl;
         cout << "Hash: " << iterate->hashNo << endl;
+        cout << "Hash verification result: " << h.hash(iterate->data + iterate->hashNo) << endl;
         cout << endl;
         iterate = iterate->next;
         i++;
